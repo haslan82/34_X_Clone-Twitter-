@@ -7,6 +7,7 @@ import {auth} from "../../firebase";
 import { PiPassword } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ResetButton from "./ResetButton";
 
 
 const Login = () => {
@@ -14,6 +15,9 @@ const Login = () => {
 const [email, setEmail] = useState("");
 const [pass, setPass]= useState("");
 const navigate = useNavigate();
+const [isError, setIsError] = useState(false);
+
+
 
 const handleSubmit = (e)=> {
   e.preventDefault();
@@ -36,6 +40,14 @@ createUserWithEmailAndPassword(auth, email, pass)
   navigate("/feed");
   })
   .catch((err)=> {
+
+    // eğer giriş bilgileri yanlış hatası geldiyse
+if(err.code === "auth/invalid-credential"){
+
+  // error state ini true ya çek
+  setIsError(true);
+}
+
     toast.error("Bir sorun oluştu:" + err.code )
   });
 }
@@ -84,6 +96,7 @@ createUserWithEmailAndPassword(auth, email, pass)
             {isSignUp ? "Giriş Yapın" : "Kaydolun"}
           </span>
         </p>
+        {isError && <ResetButton email={email} />}
       </div>
     </div>
   );
