@@ -1,17 +1,33 @@
-import { signOut } from 'firebase/auth';
-import React from 'react'
-import { toast } from 'react-toastify';
-import { auth } from '../../firebase';
+
+
+import { useEffect, useState } from "react";
+import Aside from "./Aside";
+import Main from "./Main";
+import Nav from "./Nav";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
+
 
 const Feed = () => {
-  const handleClick = ()=> {
-    signOut(auth)
-    .then(()=> toast.warning("Oturumunuz kapandı"));
-  };
+const [user, setUser]= useState();
+
+
+  useEffect(()=> {
+   const unsub = onAuthStateChanged(auth, (user_data)=>{
+      setUser(user_data)
+    })
+    
+    // componentWillUnmount tetiklendiğinde yani kullanıcı sayfadan ayrıldığında aboneliği sonlandırıyoruz (perfomans+)
+    return () => unsub();
+  }, [])
+
+  
   return (
-    <div className='h-screen grid place-items-center'>
-      <button onClick={handleClick} className='text-4xl'> Çıkış Yap</button>
-    </div>
+   <div className="feed h-screen bg-black overflow-hidden text-white">
+    <Nav user={user} />
+    <Main user={user} />
+    < Aside />
+   </div>
   )
 }
 

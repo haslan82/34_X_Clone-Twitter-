@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  background: #304777;
+.feed{
+  display: grid;
+  grid-template-columns: 1fr minmax(400px, 600px) 1fr;
 }
