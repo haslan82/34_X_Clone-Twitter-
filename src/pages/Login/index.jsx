@@ -1,11 +1,92 @@
-import React from 'react'
+import React, { useState } from "react";
+import GoogleButton from "./GoogleButton";
+import { createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+ } from "firebase/auth";
+import {auth} from "../../firebase";
+import { PiPassword } from "react-icons/pi";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-  return (
-    <div>
-      Login
-    </div>
-  )
+  const [isSignUp, setIsSignUp] = useState(false);
+const [email, setEmail] = useState("");
+const [pass, setPass]= useState("");
+const navigate = useNavigate();
+
+const handleSubmit = (e)=> {
+  e.preventDefault();
+
+if(isSignUp){
+  // kaydolma modundaysa : hesap oluştur
+createUserWithEmailAndPassword(auth, email, pass)
+.then(()=> {
+  toast.success("Hesabınız oluşturuldu");
+  navigate("/feed");
+})
+.catch((err)=> toast.error("Bir sorun oluştu:" + err.code ) );
+
+}else {
+  // giriş yapma modundaysa : hesaba giriş yap
+
+  signInWithEmailAndPassword(auth, email, pass)
+  .then(()=> {
+    toast.success("Hesaba giriş yapıldı");
+  navigate("/feed");
+  })
+  .catch((err)=> {
+    toast.error("Bir sorun oluştu:" + err.code )
+  });
 }
+};
+
+
+  return (
+    <div className="h-screen bg-[#242424] text-white grid place-items-center">
+      <div className="bg-black flex flex-col gap-10 py-16 px-32 rounded-lg">
+        <div className="flex justify-center">
+          <img
+            className="h-[60px]"
+            src="x-logo.webp"
+            alt="x shaped logo black and white"
+          />
+        </div>
+        <h1 className="text-lg font-bold text-center">Twitter'a giriş yap</h1>
+
+        <GoogleButton />
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label>Email</label>
+          <input
+            className="text-black rounded mt-1 p-2 outline-none shadow-lg focus: shadow-[gray]"
+            type="text"
+            onChange={(e)=> setEmail(e.target.value)}
+            required
+          />
+
+          <label className="mt-5">Şifre</label>
+          <input
+            className="text-black rounded mt-1 p-2 outline-none shadow-lg focus: shadow-[gray]"
+            type="text"
+            onChange={(e)=>setPass(e.target.value)}
+            required
+          />
+          <button className="mt-10 bg-white text-black rounded-full p-1  font-bold transition hover:bg-gray-300">
+            {isSignUp ? "Kaydolun" : "Giriş Yap"}
+          </button>
+        </form>
+        <p className="mt-5">
+          <span className="text-gray-500">{isSignUp ? "Hesabınız varsa" : "Hesabınız yoksa"} </span>
+          <span
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="cursor-pointer text-blue-500 ms-2"
+          >
+            {isSignUp ? "Giriş Yapın" : "Kaydolun"}
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export default Login;
