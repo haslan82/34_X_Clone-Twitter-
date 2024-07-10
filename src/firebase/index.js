@@ -1,6 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
+import { getFirestore } from "firebase/firestore";
+
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD57vc1y5XnE7d1pVVS0KKzwKl5hQnk1pU",
@@ -21,3 +25,6 @@ export const auth = getAuth(app);
 
 // google provider kurulumu
 export const provider = new GoogleAuthProvider();
+
+// veritabanı referansını alma
+export const db = getFirestore(app);

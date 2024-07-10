@@ -1,8 +1,53 @@
-import React from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { BsCardImage } from "react-icons/bs";
+import { toast } from "react-toastify";
+import { auth, db } from "../../firebase";
+
+console.log(auth.currentUser);
 
 const Form = ({ user }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // 1 ) inputlarda ki veriye eriş
+    const text = e.target[0].value;
+    const file = e.target[1].files[0];
+    //!console.log(text, file);
+
+    // 2 ) yazı ve resim içeriği yoksa fonksiyonu durdur ve uyarı ver
+
+    if (!text && !file) {
+      return toast.warning("Lütfen içerik giriniz", {
+        position: "bottom-right",
+      });
+    }
+
+    // todo  3) Dosyayı storage yükle
+
+    // yeni tweet belgeselini kolleksiyona kaydet
+
+    const tweetsCol = collection(db, "tweets");
+
+    addDoc(tweetsCol, {
+      textContent: text,
+      imageContent: null,
+      likes: [],
+      isEdited: false,
+      createdAt: serverTimestamp(),
+      user: {
+        id: "",
+        name: "",
+        photo: "",
+      },
+    });
+
+    // formu sıfırla
+  };
   return (
-    <form className="flex gap-3 border-b border-zinc-600 p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex gap-3 border-b border-zinc-600 p-4"
+    >
       <img
         className="rounded-full h-[35px] md:h-[45px]"
         src={user?.photoURL}
@@ -13,11 +58,20 @@ const Form = ({ user }) => {
         <input
           className="w-full mt-1 mb-2 bg-transparent
          outline-none md:text-lg"
+          placeholder="Neler Oluyor?"
           type="text"
         />
 
         <div className="flex justify-between items-center">
-          <input type="file" />
+          <label
+            className="text-lg transition p-4 cursor-pointer
+             rounded-full hover:bg-gray-800"
+            htmlFor="image"
+          >
+            <BsCardImage />
+          </label>
+
+          <input className="hidden" id="image" type="file" />
           <button
             className="bg-blue-600 flex items-center 
     justify-center px-4 py-2 min-w-[85px] min-h-[40px] 

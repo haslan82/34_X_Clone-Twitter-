@@ -5,7 +5,7 @@ import { auth } from "../../firebase";
 
 
 const Nav = ({user}) => {
-console.log(user)
+//!console.log(user)
 
 
   return (
