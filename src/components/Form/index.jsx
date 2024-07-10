@@ -2,11 +2,15 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { BsCardImage } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { auth, db } from "../../firebase";
+import upload from "../../utils/upload";
 
-console.log(auth.currentUser);
+//! console.log(auth.currentUser);
+
 
 const Form = ({ user }) => {
-  const handleSubmit = (e) => {
+
+    // tweet gönder
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 1 ) inputlarda ki veriye eriş
@@ -21,27 +25,34 @@ const Form = ({ user }) => {
         position: "bottom-right",
       });
     }
-
+try{
     // todo  3) Dosyayı storage yükle
+
+    upload(file);
 
     // yeni tweet belgeselini kolleksiyona kaydet
 
     const tweetsCol = collection(db, "tweets");
 
-    addDoc(tweetsCol, {
+   await addDoc(tweetsCol, {
       textContent: text,
       imageContent: null,
       likes: [],
       isEdited: false,
       createdAt: serverTimestamp(),
       user: {
-        id: "",
-        name: "",
-        photo: "",
+        id: auth.currentUser.uid,
+        name: auth.currentUser.displayName,
+        photo: auth.currentUser.photoURL,
       },
     });
-
+}catch(err){
+    console.log(err)
+    toast.error("Bir hata oluştu")
+}
     // formu sıfırla
+
+    e.target.reset();
   };
   return (
     <form
