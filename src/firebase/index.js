@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 
 
@@ -28,3 +29,6 @@ export const provider = new GoogleAuthProvider();
 
 // veritabanı referansını alma
 export const db = getFirestore(app);
+
+// storage ın referansını alma
+export const storage = getStorage(app);

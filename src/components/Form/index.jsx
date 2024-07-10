@@ -28,15 +28,15 @@ const Form = ({ user }) => {
 try{
     // todo  3) Dosyayı storage yükle
 
-    upload(file);
+    const url = await upload(file);
 
     // yeni tweet belgeselini kolleksiyona kaydet
 
     const tweetsCol = collection(db, "tweets");
 
-   await addDoc(tweetsCol, {
+    await addDoc(tweetsCol, {
       textContent: text,
-      imageContent: null,
+      imageContent: url,
       likes: [],
       isEdited: false,
       createdAt: serverTimestamp(),
@@ -46,10 +46,10 @@ try{
         photo: auth.currentUser.photoURL,
       },
     });
-}catch(err){
-    console.log(err)
-    toast.error("Bir hata oluştu")
-}
+  } catch (err) {
+    console.log(err);
+    toast.error("Bir hata oluştu");
+  }
     // formu sıfırla
 
     e.target.reset();
