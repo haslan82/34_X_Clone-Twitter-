@@ -13,7 +13,7 @@
   --burger-line-height: 0.125em;
   --burger-offset: 0.625em;
   --burger-bg: rgba(0, 0, 0, .15);
-  --burger-color: #333;
+  --burger-color: #6a6969;
   --burger-line-border-radius: 0.1875em;
   --burger-diameter: 2.125em;
   --burger-btn-border-radius: calc(var(--burger-diameter) / 2);
@@ -36,7 +36,7 @@
   --nav-font-family: Menlo, Roboto Mono, monospace;
   --nav-default-scale: .8;
   --nav-active-scale: 1;
-  --nav-position-left: 0;
+  --nav-position-left: -82px;
   --nav-position-right: unset;
   /* if you want to change sides just switch one property */
   /* from properties to "unset" and the other to 0 */
