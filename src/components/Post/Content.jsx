@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Content = () => {
+const Content = ({tweet}) => {
   return (
-    <div>
-      
+    <div className='my-4'>
+      {tweet.textContent && <p>{tweet.textContent} </p>}
+      {tweet.imageContent && <img src={tweet.imageContent}
+       className='mt-2 w-full rounded-lg object-cover max-[400px]' />}
     </div>
   )
 }
