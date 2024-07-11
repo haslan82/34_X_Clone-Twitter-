@@ -3,12 +3,16 @@ import { BsCardImage } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { auth, db } from "../../firebase";
 import upload from "../../utils/upload";
+import { useState } from "react";
+import Loader from "../Loader";
 
 //! console.log(auth.currentUser);
 
 
 const Form = ({ user }) => {
 
+
+  const [isLoading, setIsLoading] = useState(false);
     // tweet gönder
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +29,8 @@ const Form = ({ user }) => {
         position: "bottom-right",
       });
     }
+
+    setIsLoading(true);
 try{
     // todo  3) Dosyayı storage yükle
 
@@ -50,7 +56,9 @@ try{
     console.log(err);
     toast.error("Bir hata oluştu");
   }
-    // formu sıfırla
+
+  setIsLoading(false);
+    // 5)cformu sıfırla
 
     e.target.reset();
   };
@@ -83,12 +91,13 @@ try{
           </label>
 
           <input className="hidden" id="image" type="file" />
-          <button
-            className="bg-blue-600 flex items-center 
+          <button 
+          disabled={isLoading}
+          className="bg-blue-600 flex items-center 
     justify-center px-4 py-2 min-w-[85px] min-h-[40px] 
     rounded-full transition hover:bg-blue-800"
           >
-            Tweetle
+            {isLoading ? <Loader /> : "Tweetle"}
           </button>
         </div>
       </div>
