@@ -3,13 +3,26 @@ import { FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Modal from "../Modal";
 
 
 // uiverse.io sitesine gittik
 const Dropdown = ({tweet}) => {
+
+
 const [isModalOpen, setIsModalOpen] = useState(false);
+
+// input referansı
+const inputRef = useRef();
+
+//! console.log(inputRef)
+
+
+// DropDown ı kapat
+const close = ()=> {
+inputRef.current.checked = false;
+};
 
 // silme
 const handleDelete = () => {
@@ -20,10 +33,14 @@ deleteDoc(tweetRef)
 .then(()=> toast.info("Tweet akıştan kaldırıldı"))
 .catch(()=> toast.error("Bir sorun oluştu"))
 
+close();
+
 };
 // güncelleme
 const handleEdit = () => {
   setIsModalOpen(true);
+
+  close();
 };
 
 
@@ -35,7 +52,7 @@ const handleEdit = () => {
   return (
   <>
 <label className="popup">
-  <input type="checkbox"/>
+  <input ref={inputRef} type="checkbox"/>
   <div className="burger" >
     <span></span>
     <span></span>
