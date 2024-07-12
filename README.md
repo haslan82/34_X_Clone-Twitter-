@@ -31,6 +31,7 @@ Bu proje, React ve Firebase kullanılarak oluşturulmuş basit bir Twitter klonu
 
 ## Canlı Proje
 
+https://34-x-clone-twitter.vercel.app/
 
 
 
