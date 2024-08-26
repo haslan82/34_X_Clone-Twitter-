@@ -3,7 +3,7 @@
 Bu proje, React ve Firebase kullanılarak oluşturulmuş basit bir Twitter klonudur. Kullanıcılar, tweet oluşturabilir, tweetleri görüntüleyebilir, düzenleyebilir, like atabilir ve silebilirler. Firebase üzerinden gerçek zamanlı olarak veri senkronizasyonunu deneyimleyebilirler. 
 
 
-# Kullanılan Kütüphaneler
+## Kullanılan Kütüphaneler
 
 - react-router-dom
 - react-toastify
@@ -13,26 +13,25 @@ Bu proje, React ve Firebase kullanılarak oluşturulmuş basit bir Twitter klonu
 - firebase
 - tailwind
 
-# Authentication (Kimlik Doğrulama)
+## Authentication (Kimlik Doğrulama)
 
 - Bir kullanıcnın kimliğini doğrulama sürecidir.
 - Kullanıcı adı ve şifre, parmak izi, yüz tanıma, google hesabı kullanılar kimlik doğrulanabilir. 
 
-# Authorization (Yetkilendirme)
+## Authorization (Yetkilendirme)
 
 - Bir kullanıcnın sisitemin kaynaklarına / işlevlerine / sayflarına erişim sürecidir.
 - Yani kimlik doğrulama başarılı olduktan sonra kullanıcnın ne kadar erişime sahip olduğunu belirleme sürecidir
 
 
-
-### Project gif
-
-![](./public/Adsız%20tasarım.gif)
-
-## Canlı Proje
+### Canlı Proje
 
 https://34-x-clone-twitter.vercel.app/
 
 
+### Gif
 
-##  Designed by <a href="https://www.linkedin.com/in/h%C3%BCseyin-aslan-128519203/" target="_blank">Hüseyin ASLAN</a> 
+![](./public/Adsız%20tasarım.gif)
+
+
+### Designed by <a href="https://www.linkedin.com/in/h%C3%BCseyin-aslan-128519203/" target="_blank">Hüseyin ASLAN</a> 
